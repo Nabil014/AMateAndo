@@ -12,10 +12,14 @@ import {
 import { BsFillPersonFill } from "react-icons/bs";
 import { CgProfile } from "react-icons/cg";
 import { ImUserPlus, ImUserCheck } from "react-icons/im";
+import CartWidget from "../CartWidget/CartWidget";
+import Cart from "../Cart/Cart";
 
-const NavBar = ({toggleMenu }) => {
+const NavBar = () => {
   const dispatch = useDispatch();
   const [product, setProduct] = useState("");
+  const [showCart, setShowCart]= useState(false)
+
   let userInfo = localStorage.getItem("userInfo");
   useEffect(() => {
     dispatch(getProduct(""));
@@ -30,7 +34,9 @@ const NavBar = ({toggleMenu }) => {
   }
   const location = window.location.pathname;
 
- 
+  const handleOnClose = () => setShowCart(false)
+  
+  
   return (
     <div className="sm:p-0 z-2 bg-orange-300 h-25 w-full flex items-center justify-between xl:px-4 md:px-4 border-b-[1px] border-[#06283D] border-solid">
       <Link to="/">
@@ -134,14 +140,12 @@ const NavBar = ({toggleMenu }) => {
         {userInfo === null ? (
           <div></div>
         ) : (
-            <Link to={"/"}>
               <div>
-                <button onClick={toggleMenu} className="hover:bg-orange-200 p-2 rounded-full transition-colors relative" >
-                  <RiShoppingCartLine className="text-2xl text-[#06283D]" />
+                <button onClick={()=>setShowCart(true)}>
+                  <CartWidget />
                 </button>
+                  <Cart onClose={handleOnClose} visible={showCart}/>
               </div>
-            </Link>
-           
         )}
       </div>
     </div>

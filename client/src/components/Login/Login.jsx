@@ -5,7 +5,6 @@ import axios from "axios";
 import Confetti from "react-confetti";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Logout from "../Logout/Logout";
 const clientId =
   "599718821872-hhje7rdvlv3cq5v55a1e2oe22ok6qd04.apps.googleusercontent.com";
 
@@ -223,7 +222,7 @@ const Login = () => {
                 <h3>{state.name}</h3>
                 <h3>{state.email}</h3>
                 <h3>{state.token}</h3>
-                <Logout />
+                {/* <Logout /> */}
               </div>
             )}
           </div>
