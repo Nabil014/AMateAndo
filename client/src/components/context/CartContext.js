@@ -10,11 +10,15 @@ const CartProvider = (props) => {
 
       let index = cart.findIndex((el) => el.name === item.name);
       let product = cart[index];
-      product.qty = product.qty + qty;
-
-      const newCart = [...cart];
-      newCart.splice(index, 1, product);
-      setCart([...newCart]);
+      if(product.qty >= product.stock) return alert("El stock no permite agregar mas productos!")
+        
+      while (product.qty< product.stock) {
+        product.qty++
+        // product.qty = product.qty + qty;
+        const newCart = [...cart];
+        newCart.splice(index, 1, product);
+        setCart([...newCart]);
+      }
 
     } else {
       let product = { ...item, qty };
@@ -23,7 +27,8 @@ const CartProvider = (props) => {
   };
 
   const deleteCart = () => {
-    setCart([]);
+      setCart([]);
+      
   };
 
   const deleteItem = (name) => {

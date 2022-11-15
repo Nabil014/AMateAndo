@@ -9,7 +9,6 @@ export default function Card(item) {
 
   const onAdd=(qty)=>{
     addToCart(item,qty)
-
   }
 
   return (
@@ -24,7 +23,7 @@ export default function Card(item) {
       </div>
       <div className="bg-orange-300 p-2 flex rounded-bl-lg rounded-br-lg flex-col">
         <span className="text-gray-700 font-bold text-xl mb-2 text-center">$ {price},00</span>
-        <ItemCount stock={item.stock} initial={1} onAdd={onAdd} />
+        <ItemCount cart={cart} stock={item.stock} initial={1} onAdd={onAdd} />
       </div>
     </div>
   );

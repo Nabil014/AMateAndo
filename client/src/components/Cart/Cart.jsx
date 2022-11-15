@@ -5,15 +5,15 @@ import {
   RiDeleteBinLine,
   RiCloseCircleLine,
   RiCloseFill,
+  RiDeleteBin5Fill
 } from "react-icons/ri";
 import { useEffect } from "react";
 
 const Cart = ({ visible, onClose }) => {
   const cartContext = useContext(CartContext);
-  const { cart, deleteItem, refreshQty } = cartContext;
-  const [checkStockMenor, setCheckStockMenor]= useState(false)
-  const [checkStockMayor, setCheckStockMayor]= useState(false)
-
+  const { cart, deleteItem, refreshQty,deleteCart } = cartContext;
+  const [checkStockMenor, setCheckStockMenor] = useState(false);
+  const [checkStockMayor, setCheckStockMayor] = useState(false);
 
   const totalCart = cart
     .map((e) => e.qty * e.price)
@@ -25,17 +25,16 @@ const Cart = ({ visible, onClose }) => {
 
   const refreshQty2 = (name, num) => {
     let index = cart.findIndex((el) => el.name === name);
-      let product = cart[index];
-      // if(product.qty === 1) setCheckStockMenor(true)
-      // if(product.qty === product.stock) setCheckStockMayor(true)
-      // if(product.qty <= product.stock && product.qty >= product.stock) {
-        refreshQty(name, num);
-        // setCheckStockMayor(false)
-        // setCheckStockMenor(false)
-      // }
+    let product = cart[index];
+    if (product.qty === 0 && num === -1) return alert("La cantidad es 0!");
+
+    if (product.qty === product.stock && num === +1) {
+      return alert("no hay mas productos en stock!");
+    } else {
+      refreshQty(name, num);
     }
-    
-  
+  };
+
   if (!visible) return null;
   return (
     <div
@@ -65,11 +64,13 @@ const Cart = ({ visible, onClose }) => {
                     className="w-16 xl:w-24 md:w-24 h-24 object-contain rounded-lg shadow-lg"
                   />
                   <h1 className="text-lg font-semibold">{e.name}</h1>
-                  <button onClick={() => refreshQty2(e.name, -1)} disabled={checkStockMenor}>-</button>
+                  <div className="flex gap-5 justify-center items-center border-solid border-2 p-2">
+                  <button className="text-xl font-bold px-1.5 py-0 rounded-ful items-start justify-center flex" onClick={() => refreshQty2(e.name, -1)}>-</button>
                   <p>{e.qty}</p>
-                  <button onClick={() => refreshQty2(e.name, +1)} disabled={checkStockMayor}>+</button>
+                  <button className="text-xl font-bold" onClick={() => refreshQty2(e.name, +1)}>+</button>
+                  </div>
                   <span className="font-semibold">$ {e.price},00</span>
-                  <button onClick={deleteItem}>
+                  <button onClick={()=>deleteItem(e.name)}>
                     <RiDeleteBinLine className="text-xl hover:text-red-500 transition-colors" />
                   </button>
                 </div>
@@ -84,9 +85,13 @@ const Cart = ({ visible, onClose }) => {
             </h1>
           </div>
         )}
-        <div className="flex justify-end xl:m-5 xl:mr-20 lg:m-5 lg:mr-16 md:m-5 md:mr-10 text-lg mr-4 font-bold text-[#06283D]">
+        <div className="flex justify-between xl:m-5 xl:mr-20 lg:m-5 lg:mr-16 md:m-5 md:mr-10 text-lg mr-4 font-bold text-[#06283D]">
+          <button className="flex justify-center items-center gap-2 border-solid border-2 text-lg font-normal border-[#06283D] rounded-lg p-1 hover:bg-[#06283D] hover:text-white transition-colors" onClick={()=>deleteCart()}><RiDeleteBin5Fill/> Vaciar carrito</button>
+          <div className="flex">
           <h1 className=" mr-8">Total a pagar: </h1>
           <span className="">$ {totalCart},00</span>
+          </div>
+
         </div>
       </div>
     </div>

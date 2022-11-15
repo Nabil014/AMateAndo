@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const ItemCount = ({ initial, stock, onAdd }) => {
+const ItemCount = ({ initial, stock, onAdd, cart }) => {
   const [qty, setQty] = useState(initial);
   const [showButton, setShowButton] = useState(false);
 
@@ -8,6 +8,7 @@ const ItemCount = ({ initial, stock, onAdd }) => {
     setQty(qty + num);
   };
 
+  
   return (
     <div>
       <div className="flex gap-2 justify-between items-center">
