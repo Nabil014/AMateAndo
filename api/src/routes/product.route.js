@@ -5,17 +5,17 @@ const upload = require("../../../api/libs/storage");
 const cloudinary = require("../../src/utils/cloudinary");
 
 router.post("/", upload.single("picture"), async (req, res) => {
-  const { name, price, stock, description, visibility } = req.body;
-  console.log(req.body)
+  const { title, unit_price, stock, description, visibility } = req.body;
   const result = await cloudinary.uploader.upload(req.file.path);
   try {
-    const productExist = await Product.findOne({ name });
+    const productExist = await Product.findOne({ title });
     if (productExist) {
       return res.status(400).send("El producto ya existe");
     }
+    const titleLower = title.toLowerCase();
     const newProduct = new Product({
-      name,
-      price,
+      title: titleLower,
+      unit_price,
       stock,
       description,
       visibility,
@@ -30,12 +30,12 @@ router.post("/", upload.single("picture"), async (req, res) => {
 });
 
 router.get("/", async (req, res) => {
-  const productId = req.query.name;
-  const products = await Product.find();
+  const {productTitle} = req.query;
   try {
-    if (productId) {
-      Product.find({ name: productId }, (err, name) => {
-        res.send(name);
+   const products = await Product.find();
+    if (productTitle) {
+      Product.find({title:{$regex:productTitle,$options:'i'}}, (err, product) => {
+        res.send(product);
       });
     } else {
       res.json(products);

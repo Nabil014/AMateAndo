@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Menu, Transition } from "@headlessui/react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getProduct } from "../../Redux/Actions/index";
 import logo from "../../assets/fondo.jpeg";
@@ -11,6 +11,7 @@ import {
 } from "react-icons/ri";
 import { BsFillPersonFill } from "react-icons/bs";
 import { CgProfile } from "react-icons/cg";
+import { RiCloseCircleLine } from "react-icons/ri";
 import { ImUserPlus, ImUserCheck } from "react-icons/im";
 import CartWidget from "../CartWidget/CartWidget";
 import Cart from "../Cart/Cart";
@@ -22,20 +23,21 @@ const NavBar = () => {
 
   let userInfo = localStorage.getItem("userInfo");
   useEffect(() => {
-    dispatch(getProduct(""));
-  }, [dispatch]);
+    dispatch(getProduct(product));
+  }, [product]);
 
-  function handleInputChange(e) {
+  function inputSearch(e) {
     setProduct(e.target.value);
   }
-  function handleSubmit(e) {
-    dispatch(getProduct(product));
+  
+ 
+
+  function clearInput(){
     setProduct("");
   }
-  const location = window.location.pathname;
 
+  const location = window.location.pathname;
   const handleOnClose = () => setShowCart(false)
-  
   
   return (
     <div className="sm:p-0 z-2 bg-orange-300 h-25 w-full flex items-center justify-between xl:px-4 md:px-4 border-b-[1px] border-[#06283D] border-solid">
@@ -50,17 +52,16 @@ const NavBar = () => {
       {
         <div>
           {location === "/" ? (
-            <div className="relative">
+            <div className=" relative block group">
               <input
                 placeholder="Buscar.."
-                onChange={handleInputChange}
-                className="outline-none py-1 pl-10 pr-4 rounded-full"
+                onChange={inputSearch}
+                className="outline-none text-[#06283da8] font-normal focus:border-[#06283da8] focus:ring-[#06283db2] focus:ring-2 focus:shadow-lg focus:scale-105 transition-all py-1 pl-10 pr-4 rounded-full italic"
                 type="text"
                 value={product}
               />
-              <button type="submit" onClick={(e) => handleSubmit(e)}>
-                <RiSearchLine className="absolute left-4 top-1/4 -traslate-y-1/2 text-[#06283D]" />
-              </button>
+                <RiSearchLine className="absolute left-3 top-1/4 -traslate-y-1/2 text-[#06283D] group-focus-within:-translate-x-2 group-focus-within:text-xl group-focus-within:justify-center group-focus-within:top-1 transition-all" />
+              {product !== "" ? <RiCloseCircleLine onClick={clearInput} className="absolute cursor-pointer right-2 top-1/4 -traslate-y-1/2 text-red-500 hover:scale-110 hover:transition-all transition-all rounded-full"/>: ""}
             </div>
           ) : (
             <div></div>
@@ -125,6 +126,7 @@ const NavBar = () => {
                         <button
                           onClick={() => {
                             localStorage.removeItem("userInfo");
+                            localStorage.removeItem("cart");
                           }}
                         >
                           Cerrar Sesion

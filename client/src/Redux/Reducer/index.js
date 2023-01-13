@@ -2,6 +2,7 @@ const initialState = {
   product: [],
   cart: {
     cartItem: [],
+    preferenceId: [],
   },
 };
 
@@ -20,7 +21,7 @@ function rootReducer(state = initialState, action) {
       //una condicion para actualizar si existe el item o guardar si no existe
       const cartItem = existItem
         ? state.cart.cartItem.map((item) =>
-            item.name === existItem.name ? newItem : item
+            item.title === existItem.title ? newItem : item
           )
         : //de lo contrario si no existe entonces guardamos el primero
           [...state.cart.cartItem, newItem];
@@ -32,8 +33,14 @@ function rootReducer(state = initialState, action) {
         },
       };
     }
+    case "PAYMENT":
+      return {
+        ...state,
+        preferenceId: action.payload,
+      };
+    
     default:
-      return { ...state };
+      return state ;
   }
 }
 

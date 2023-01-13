@@ -3,7 +3,7 @@ import axios from "axios";
 export function getProduct(name) {
   return async function (dispatch) {
     try {
-      const json = await axios.get(`/api/product?name=${name}`);
+      const json = await axios.get('/api/product?productTitle=' + name);
       dispatch({
         type: "GET_PRODUCT",
         payload: json.data,
@@ -26,3 +26,24 @@ export function postUser(user){
       console.log(error);
     }
   }};
+
+export function payment(payload) {
+  return async function(dispatch){
+    try {
+      const res = await axios.post("/api/payment", payload)
+      return dispatch({
+        type: "PAYMENT",
+        payload: res.data
+      });
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export function byOrder(payload) {
+  return {
+    type: "BY_ORDER",
+    payload
+  }
+}

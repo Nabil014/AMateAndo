@@ -5,23 +5,26 @@ export const CartContext = createContext(null);
 const CartProvider = (props) => {
   const [cart, setCart] = useState([]);
 
-  const addToCart = (item, qty) => {
-    if (cart.some((el) => el.name === item.name)) {
+  const addToCart = (item, quantity) => {
+    if (cart.some((el) => el.title === item.title)) {
 
-      let index = cart.findIndex((el) => el.name === item.name);
+      let index = cart.findIndex((el) => el.title === item.title);
       let product = cart[index];
-      if(product.qty >= product.stock) return alert("El stock no permite agregar mas productos!")
-        
-      while (product.qty< product.stock) {
-        product.qty++
+      if(product.quantity >= product.stock) return alert("El stock no permite agregar mas productos!")
+      let n=0
+      
+      while (n<quantity ) {
+        n++
+        if(product.quantity >= product.stock) return alert("El stock no permite agregar mas productos!")
+        product.quantity++
         // product.qty = product.qty + qty;
         const newCart = [...cart];
         newCart.splice(index, 1, product);
         setCart([...newCart]);
       }
-
+      
     } else {
-      let product = { ...item, qty };
+      let product = { ...item, quantity };
       setCart([...cart, product]);
     }
   };
@@ -31,18 +34,18 @@ const CartProvider = (props) => {
       
   };
 
-  const deleteItem = (name) => {
+  const deleteItem = (title) => {
     const newCart = [...cart];
-    let index = newCart.findIndex((el) => el.name === name);
+    let index = newCart.findIndex((el) => el.title === title);
     newCart.splice(index, 1);
     setCart([...newCart]);
   };
 
-  const refreshQty = (name,qty2) =>{
+  const refreshQty = (title,qty2) =>{
 
-    let index = cart.findIndex((el) => el.name === name);
+    let index = cart.findIndex((el) => el.title === title);
       let product = cart[index];
-      product.qty = product.qty + qty2;
+      product.quantity = product.quantity + qty2;
         
         const newCart = [...cart];
         newCart.splice(index, 1, product);
@@ -58,7 +61,6 @@ const CartProvider = (props) => {
   useEffect(()=>{
     localStorage.setItem('cart', JSON.stringify(cart))
   },[cart])
-
   return (
     <CartContext.Provider
       value={{ cart, setCart, addToCart, deleteCart, deleteItem,refreshQty }}

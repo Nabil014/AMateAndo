@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const ItemCount = ({ initial, stock, onAdd, cart }) => {
+const ItemCount = ({ initial, stock, onAdd }) => {
   const [qty, setQty] = useState(initial);
   const [showButton, setShowButton] = useState(false);
 
