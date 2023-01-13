@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { GoogleLogin } from "react-google-login";
+// import { GoogleLogin } from "react-google-login";
 import axios from "axios";
 import Confetti from "react-confetti";
 import { ToastContainer, toast } from "react-toastify";
@@ -202,16 +202,7 @@ const Login = () => {
               pauseOnHover={false}
               draggable
             />
-            {!state.profile_loaded ? (
-              <div>
-                <GoogleLogin
-                  clientId={clientId}
-                  buttonText="Login"
-                  onSuccess={onSuccess}
-                  onFailure={onFailure}
-                />
-              </div>
-            ) : (
+            
               <div>
                 {state.conffeti ? (
                   <Confetti
@@ -224,7 +215,6 @@ const Login = () => {
                 <h3>{state.token}</h3>
                 {/* <Logout /> */}
               </div>
-            )}
           </div>
           <span className="flex items-center justify-center gap-2">
             ¿Olvidaste tu contraseña?{" "}
