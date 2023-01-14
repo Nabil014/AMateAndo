@@ -29,6 +29,20 @@ router.post("/", upload.single("picture"), async (req, res) => {
   }
 });
 
+router.get('/:_id',async(req,res) => {
+  const {_id}=req.params
+  try {
+    Product.findById({_id:_id},(error,product) => {
+      if(!product){
+        res.status(404).send(`El Id=${_id} no corresponde a ningun producto`)
+      }
+      res.status(200).send(product)
+    })
+  } catch (error) {
+    console.log(error)
+  }
+})
+
 router.get("/", async (req, res) => {
   const {productTitle} = req.query;
   try {
