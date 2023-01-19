@@ -12,6 +12,18 @@ export function getProduct(name) {
       console.log(error);
     }
   }};
+export function getProductById(id) {
+  return async function (dispatch) {
+    try {
+      const json = await axios.get('/api/product/' + id);
+      dispatch({
+        type: "GET_PRODUCT_BY_ID",
+        payload: json.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }};
 
 export function postUser(user){
   return async function (dispatch) {

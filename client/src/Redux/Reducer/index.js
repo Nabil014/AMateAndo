@@ -1,5 +1,6 @@
 const initialState = {
   product: [],
+  productId: [],
   cart: {
     cartItem: [],
     preferenceId: [],
@@ -12,6 +13,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         product: action.payload,
+      };
+    case "GET_PRODUCT_BY_ID":
+      return {
+        ...state,
+        productId: action.payload,
       };
     case "CARD_ADD_ITEM": {
       const newItem = action.payload;
