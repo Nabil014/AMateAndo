@@ -61,14 +61,14 @@ const NavBar = () => {
                 value={product}
               />
                 <RiSearchLine className="absolute left-3 top-1/4 -traslate-y-1/2 text-[#06283D] group-focus-within:-translate-x-2 group-focus-within:text-xl group-focus-within:justify-center group-focus-within:top-1 transition-all" />
-              {product !== "" ? <RiCloseCircleLine onClick={clearInput} className="absolute cursor-pointer right-2 top-1/4 -traslate-y-1/2 text-red-500 hover:scale-110 hover:transition-all transition-all rounded-full"/>: ""}
+              {product !== "" ? <RiCloseCircleLine onClick={clearInput} className="absolute cursor-pointer right-2 top-1/4 -traslate-y-1/2 text-red-500 hover:scale-110 hover:text-[17px] hover:items-center hover:bg-red-500 hover:text-white ease-out hover:transition-all transition-all rounded-full"/>: ""}
             </div>
           ) : (
             <div></div>
           )}
         </div>
       }
-      <div className="flex flex-row-reverse">
+      <div className="flex flex-row-reverse z-50">
         <Menu as="div">
           <Menu.Button className="hover:bg-orange-200 p-2 rounded-full transition-colors relative">
             <CgProfile className="text-2xl text-[#06283D]" />

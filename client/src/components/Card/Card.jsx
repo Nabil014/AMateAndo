@@ -14,7 +14,7 @@ export default function Card(item) {
 
   return (
     <div className="bg-white max-w-xs rounded-lg shadow-xl hover:shadow-2xl ">
-      <Link to={`/${_id}`}>
+      <Link to={`/product/${_id}`}>
       <div className="py-4 px-5 flex flex-col ">
         <h1 className="text-2xl font-bold text-gray-700">
           {title}
