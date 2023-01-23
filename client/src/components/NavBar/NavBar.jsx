@@ -15,9 +15,12 @@ import { RiCloseCircleLine } from "react-icons/ri";
 import { ImUserPlus, ImUserCheck } from "react-icons/im";
 import CartWidget from "../CartWidget/CartWidget";
 import Cart from "../Cart/Cart";
+import { useAuth0 } from "@auth0/auth0-react";
+
 
 const NavBar = () => {
   const dispatch = useDispatch();
+  const {user,isAuthenticated} = useAuth0()
   const [product, setProduct] = useState("");
   const [showCart, setShowCart]= useState(false)
 

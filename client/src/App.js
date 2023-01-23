@@ -8,8 +8,6 @@ import CartProvider from "./components/context/CartContext.js";
 import Payment from "./components/Payment/Payment.jsx";
 import Status from "./components/Payment/Status.jsx"
 import Details from "./components/Details/Details.jsx";
-const clientId =
-  "599718821872-hhje7rdvlv3cq5v55a1e2oe22ok6qd04.apps.googleusercontent.com";
 
 function App() {
   return (

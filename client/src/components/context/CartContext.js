@@ -4,7 +4,6 @@ export const CartContext = createContext(null);
 
 const CartProvider = (props) => {
   const [cart, setCart] = useState([]);
-
   const addToCart = (item, quantity) => {
     if (cart.some((el) => el.title === item.title)) {
 

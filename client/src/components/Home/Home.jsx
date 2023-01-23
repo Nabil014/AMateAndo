@@ -3,6 +3,7 @@ import NavBar from "../NavBar/NavBar";
 import { useDispatch, useSelector } from "react-redux";
 import { getProduct } from "../../Redux/Actions/index";
 import Products from "../Products/Products";
+import LoginProfile from "../Login/LoginProfile";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -13,7 +14,6 @@ const Home = () => {
   useEffect(() => {
     dispatch(getProduct(""));
   }, []);
- 
 
   const [showShop, setShowShop] = useState(false);
   const toggleMenu = () => {
@@ -22,7 +22,7 @@ const Home = () => {
   return (
     <div className=" bg-gray-100 min-h-screen ">
       <NavBar toggleMenu={toggleMenu} />
-        <Products/>
+      <Products />
     </div>
   );
 };

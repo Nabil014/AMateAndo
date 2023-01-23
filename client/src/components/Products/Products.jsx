@@ -45,7 +45,7 @@ const Products = () => {
   return (
     <div>
       <Filters orderBy={orderBy} />
-      <div className="justify-around gap-3 pt-5 pb-5 grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 m-4">
+      <div className="justify-around gap-3 pt-5 pb-5 grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-2 sm:justify-items-center m-4">
         {allProducts.map(({ _id, title, unit_price, picture, stock }) => {
           return (
               <Card
